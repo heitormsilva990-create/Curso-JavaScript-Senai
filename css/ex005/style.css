@@ -1,0 +1,66 @@
+body {
+    background-color: azure;
+}
+
+/*Para estilizar IDs, usamos "#" */
+/*Para estilizar Classes, usamos "." */
+
+
+#fundoverde{
+    background-color: lightgreen;
+    color: red;
+}
+
+#modulo-html{
+    background-color: blue;
+    color: red;
+    text-align: center;
+    font-size: 40px;
+}
+
+#modulo-css{
+    background-color: blue;
+    color: red;
+    text-align: center;
+    font-size: 40px;
+}
+
+#modulo-js{
+    background-color: blue;
+    color: red;
+    text-align: center;
+    font-size: 40px;
+}
+
+#modulo-html,#modulo-css,#modulo-js{
+    background-color: blue;
+    color: red;
+    text-align: center;
+    font-size: 40px;
+}
+
+.modulo{
+    background-color: blue;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+
+.basico{
+    color: yellow;
+    text-align: center;
+}
+
+.Intermediario{
+    color: red;
+    text-align: center;
+}
+
+.Avançado{
+    color: green    ;
+    text-align: center;
+}
+
+.destaque{
+    background-color: yellow;
+}

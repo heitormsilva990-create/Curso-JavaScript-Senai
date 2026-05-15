@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Box</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        #noticias{
+            background-color: lightcoral;
+            display: flex;
+            flex-direction: row;
+        }
+
+        p{
+            background-color: blueviolet;
+            margin: 20px;
+            padding: 10px;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            font-size: 40px;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <!-- Presiiçamos adicionar o dispaly: flex; no container -> pai dos elementos que presicam ser flexiveix -->
+
+    <section id="noticias">
+        <p>A</p>
+    
+        <p>B</p>
+        
+        <p>C</p>
+    
+    </section>
+
+</body>
+
+</html>

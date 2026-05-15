@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alinhamentos</title>
+    <STYle>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container{
+            background-color: lightsalmon;
+            display: flex;
+            height: 250px;
+            
+            /* Alinhamento horizontal */
+
+            /* justify-content: start; */
+            /* justify-content: end; */
+            justify-content: center;
+            /* justify-content: center; */
+            /* justify-content: space-around; */
+            /* justify-content: space-between; */
+            
+            /* Alinhamento vertical */
+
+            align-items: center;
+            
+        }
+
+        .item{
+            background-color: lightskyblue;
+            padding: 5px;
+            border: 1px solid black;
+            /* margin: 10px; */
+        }
+
+    </STYle>
+</head>
+<body>
+    <h1>Trabalhando com Alinhamentos</h1>
+
+    <div id="container">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+    </div>
+</body>
+</html>
