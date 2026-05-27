@@ -16,26 +16,29 @@
 
     <p id="resultado">Resultado...</p>
 
-    <!-- <input type="button" value="Clique aqui" onclick="mostrarMensagem()" >
-    <input type="button" value="Trocar Cor" onclick="trocarCor()" > -->
+    <input type="button" value="Clique aqui" onclick="mostrarMensagem()" >
+    <input type="button" value="Trocar Cor" onclick="trocarCor()" > 
 
     <script>
-        function somarNumeros(){
+        
+        function somarNumeros() {
             let numero1 = Number(document.getElementById('numero1').value)
             let numero2 = Number(document.getElementById('numero2').value)
 
             let soma = numero1 + numero2 
             
-            let elementoResultado = document.getElementById('resultado')
+            let paragrafo = document.getElementById('resultado')
             paragrafo.innerHTML = `O resultado da soma é <strong>${soma}</strong>`
         }
+
         function mostrarMensagem() {
             console.log("Clicou no botão")
         }
 
-        function trocarCor(){
+        function trocarCor() {
             window.document.body.style.backgroundColor = 'red'
         }
+
     </script>
 </body>
 </html>
