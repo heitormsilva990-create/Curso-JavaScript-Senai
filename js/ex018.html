@@ -78,13 +78,13 @@
 </head>
 <body>
 
-    <form method="post">
+    <form id="form">
         <h1>Trabalhando com formularios</h1>
         <label for="nome"> Nome: </label>
-        <input type="text" id="nome" required>
+        <input type="text" id="nome">
         
         <label for="idade">Idade</label>
-        <input type="number" name="idade" id="idade" min="5" max="10" required>
+        <input type="number" name="idade" id="idade" min="5" max="10">
 
         <label for="">Notas</label>
         <input type="number" name="notas" id="notas" min="0" max="10" step="0.1">
@@ -93,7 +93,7 @@
         <input type="password" name="" id="password">
 
         <label for="">Email:</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" id="email">
 
         <label for="">Estado Civil:</label>
         <input class="radio" type="radio" name="status" id="Casado">Casado
@@ -107,5 +107,32 @@
 
         <button type="submit">Enviar</button>       
     </form>
+
+
+    <script>
+        let form = document.getElementById('form')
+        form.addEventListener('submit', function (){
+            event.preventDefault("") // PARA CANCELAR/PREVENIR O COMPORTAMENTO PADRÃO (Enviar o comportamento padrão)
+            console.log("O SUBMIT ACONTECEU!!")
+
+            let nomeUsuario = document.getElementById('nome').value
+            alert(`Olá ${nomeUsuario}! Formulario enviado!!`)
+        })
+
+        // let input = document.querySelectorAll('.checkbox')
+        
+        // console.log("Input", input)
+
+    let body = document.querySelector('body')
+    body.addEventListener('keypress', function(event){
+          
+         if (event.key == 'f'){
+          window.location.href = 'paginaLogada.html'
+          console.log("A TECLA 'F' FOI PRESSIONADA")
+        }
+    
+    })
+
+    </script>
 </body>
 </html>
