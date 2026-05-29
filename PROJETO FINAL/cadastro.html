@@ -7,65 +7,100 @@
 
 <title>Cadastro - Brasil Viagens</title>
 
-<link rel="stylesheet" href="style.css">
-
 <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+
+    background:#f5f5f5;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:100vh;
+
+}
 
 .container{
 
-    max-width: 450px;
+    width:400px;
 
-    margin: 80px auto;
+    background:white;
 
-    background: white;
+    padding:30px;
 
-    padding: 30px;
+    border-radius:10px;
 
-    border-radius: 10px;
-
-    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    box-shadow:0 0 15px rgba(0,0,0,.1);
 
 }
 
-.container h1{
+h1{
 
-    text-align: center;
+    text-align:center;
 
-    margin-bottom: 20px;
-
-}
-
-.container input{
-
-    width: 100%;
-
-    padding: 12px;
-
-    margin-bottom: 15px;
+    margin-bottom:20px;
 
 }
 
-.container button{
+input{
 
-    width: 100%;
+    width:100%;
 
-    padding: 12px;
+    padding:12px;
 
-    background: #0077ff;
+    margin-bottom:15px;
 
-    color: white;
+    border:1px solid #ccc;
 
-    border: none;
-
-    cursor: pointer;
+    border-radius:5px;
 
 }
 
-.mensagem{
+button{
 
-    text-align: center;
+    width:100%;
 
-    margin-top: 15px;
+    padding:12px;
+
+    border:none;
+
+    border-radius:5px;
+
+    background:#0077ff;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:#005ecc;
+
+}
+
+#mensagem{
+
+    text-align:center;
+
+    margin-top:15px;
+
+}
+
+a{
+
+    text-decoration:none;
 
 }
 
@@ -82,33 +117,39 @@
     <input
         type="text"
         id="nome"
-        placeholder="Digite seu nome"
+        placeholder="Nome Completo"
     >
 
     <input
         type="email"
         id="email"
-        placeholder="Digite seu email"
+        placeholder="Email"
     >
 
     <input
         type="password"
         id="senha"
-        placeholder="Digite sua senha"
+        placeholder="Senha"
     >
 
     <button onclick="cadastrar()">
+
         Cadastrar
+
     </button>
 
-    <p class="mensagem" id="mensagem"></p>
+    <p id="mensagem"></p>
 
-    <p style="text-align:center; margin-top:15px;">
+    <br>
+
+    <p align="center">
 
         Já possui conta?
 
         <a href="login.html">
-            Fazer Login
+
+            Entrar
+
         </a>
 
     </p>
@@ -119,13 +160,13 @@
 
 async function cadastrar(){
 
-    let nome =
+    const nome =
     document.getElementById("nome").value;
 
-    let email =
+    const email =
     document.getElementById("email").value;
 
-    let senha =
+    const senha =
     document.getElementById("senha").value;
 
     if(
@@ -134,66 +175,67 @@ async function cadastrar(){
         senha === ""
     ){
 
-        alert("Preencha todos os campos!");
+        document.getElementById(
+            "mensagem"
+        ).innerText =
+        "Preencha todos os campos.";
 
         return;
 
     }
 
-    let resposta = await fetch(
+    try{
 
-        "http://localhost:3000/cadastro",
+        const resposta = await fetch(
 
-        {
+            "http://localhost:3000/cadastro",
 
-            method: "POST",
+            {
 
-            headers: {
+                method:"POST",
 
-                "Content-Type":
-                "application/json"
+                headers:{
 
-            },
+                    "Content-Type":
+                    "application/json"
 
-            body: JSON.stringify({
+                },
 
-                nome,
-                email,
-                senha
+                body:JSON.stringify({
 
-            })
+                    nome,
+                    email,
+                    senha
 
-        }
+                })
 
-    );
+            }
 
-    let dados =
-    await resposta.json();
+        );
 
-    let mensagem =
-    document.getElementById("mensagem");
+        const dados =
+        await resposta.json();
 
-    if(dados.erro){
-
-        mensagem.style.color = "red";
-
-        mensagem.innerText =
-        dados.erro;
-
-    }
-    else{
-
-        mensagem.style.color = "green";
-
-        mensagem.innerText =
+        document.getElementById(
+            "mensagem"
+        ).innerText =
         dados.sucesso;
 
-        setTimeout(function(){
+        setTimeout(() => {
 
             window.location =
             "login.html";
 
-        }, 1500);
+        },1500);
+
+    }
+
+    catch(error){
+
+        document.getElementById(
+            "mensagem"
+        ).innerText =
+        "Erro ao conectar ao servidor.";
 
     }
 

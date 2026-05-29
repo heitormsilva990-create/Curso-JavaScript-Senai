@@ -532,7 +532,13 @@ app.post("/login", (req, res) => {
 
 // LISTAR TODOS
 
+const cadastroRoutes =
+require("./routes/cadastro");
 
+app.use(
+    "/cadastro",
+    cadastroRoutes
+);
 
 
 
