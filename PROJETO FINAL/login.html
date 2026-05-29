@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login - Brasil Viagens</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.container{
+
+    max-width: 400px;
+
+    margin: 100px auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+
+}
+
+.container h1{
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+}
+
+.container input{
+
+    width: 100%;
+
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+}
+
+.container button{
+
+    width: 100%;
+
+    background: #0077ff;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px;
+
+    cursor: pointer;
+
+}
+
+.mensagem{
+
+    text-align: center;
+
+    margin-top: 15px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Entrar</h1>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Digite seu email"
+    >
+
+    <input
+        type="password"
+        id="senha"
+        placeholder="Digite sua senha"
+    >
+
+    <button onclick="login()">
+        Entrar
+    </button>
+
+    <p class="mensagem" id="mensagem"></p>
+
+    <p style="text-align:center; margin-top:15px;">
+
+        Não possui conta?
+
+        <a href="cadastro.html">
+            Cadastre-se
+        </a>
+
+    </p>
+
+</div>
+
+<script>
+
+async function login(){
+
+    let email =
+    document.getElementById("email").value;
+
+    let senha =
+    document.getElementById("senha").value;
+
+    let resposta = await fetch(
+
+        "http://localhost:3000/login",
+
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                email,
+                senha
+
+            })
+
+        }
+
+    );
+
+    let dados =
+    await resposta.json();
+
+    let mensagem =
+    document.getElementById("mensagem");
+
+    if(dados.erro){
+
+        mensagem.style.color = "red";
+
+        mensagem.innerText =
+        dados.erro;
+
+    }
+    else{
+
+        mensagem.style.color = "green";
+
+        mensagem.innerText =
+        "Login realizado!";
+
+        localStorage.setItem(
+            "usuario",
+            JSON.stringify(dados.usuario)
+        );
+
+        setTimeout(function(){
+
+            window.location =
+            "index.html";
+
+        }, 1000);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

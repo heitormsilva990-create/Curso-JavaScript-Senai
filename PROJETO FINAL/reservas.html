@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reservar Hotel</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.container{
+
+    max-width: 600px;
+
+    margin: 50px auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input{
+
+    width: 100%;
+
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+}
+
+button{
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    background: #0077ff;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+.hotel{
+
+    background: #f4f4f4;
+
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Reserva de Hotel</h1>
+
+    <div id="hotelSelecionado" class="hotel"></div>
+
+    <input
+        type="text"
+        id="nome"
+        placeholder="Nome Completo"
+    >
+
+    <input
+        type="date"
+        id="entrada"
+    >
+
+    <input
+        type="date"
+        id="saida"
+    >
+
+    <button onclick="reservar()">
+
+        Confirmar Reserva
+
+    </button>
+
+</div>
+
+<script>
+
+let hotelId =
+localStorage.getItem(
+    "hotelSelecionado"
+);
+
+async function carregarHotel(){
+
+    let resposta = await fetch(
+
+        "http://localhost:3000/hoteis/" +
+        hotelId
+
+    );
+
+    let hotel =
+    await resposta.json();
+
+    document.getElementById(
+        "hotelSelecionado"
+    ).innerHTML = `
+
+        <h3>${hotel.nome}</h3>
+
+        <p>
+            ${hotel.cidade} - ${hotel.estado}
+        </p>
+
+        <p>
+            ⭐ ${hotel.estrelas}
+        </p>
+
+        <p>
+            R$ ${hotel.preco}
+        </p>
+
+    `;
+
+}
+
+async function reservar(){
+
+    let nome =
+    document.getElementById("nome").value;
+
+    let entrada =
+    document.getElementById("entrada").value;
+
+    let saida =
+    document.getElementById("saida").value;
+
+    if(
+        nome === "" ||
+        entrada === "" ||
+        saida === ""
+    ){
+
+        alert(
+            "Preencha todos os campos."
+        );
+
+        return;
+
+    }
+
+    let resposta = await fetch(
+
+        "http://localhost:3000/reservas",
+
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                nome,
+                hotelId,
+                entrada,
+                saida
+
+            })
+
+        }
+
+    );
+
+    let dados =
+    await resposta.json();
+
+    alert(dados.sucesso);
+
+    document.getElementById(
+        "nome"
+    ).value = "";
+
+    document.getElementById(
+        "entrada"
+    ).value = "";
+
+    document.getElementById(
+        "saida"
+    ).value = "";
+
+}
+
+carregarHotel();
+
+</script>
+
+</body>
+</html>

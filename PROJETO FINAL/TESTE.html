@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Brasil Viagens</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Brasil Viagens</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="hoteis.html">Hotéis</a>
+        <a href="reservas.html">Reservas</a>
+        <a href="avaliacoes.html">Avaliações</a>
+        <a href="contato.html">Contato</a>
+        <a href="login.html">Login</a>
+
+    </nav>
+
+</header>
+
+<section class="banner">
+
+    <h2>Descubra os melhores destinos do Brasil</h2>
+
+    <p>
+        Encontre hotéis e viagens incríveis
+    </p>
+
+</section>
+
+<section class="pesquisa">
+
+    <h2>Buscar por Estado</h2>
+
+    <input
+        type="text"
+        id="estado"
+        placeholder="Ex: RJ, SP, BA"
+    >
+
+    <button onclick="buscarHotel()">
+        Buscar
+    </button>
+
+</section>
+
+<section>
+
+    <h2>Hotéis Encontrados</h2>
+
+    <div id="resultado"></div>
+
+</section>
+
+<script>
+
+async function buscarHotel(){
+
+    let estado =
+    document.getElementById("estado").value;
+
+    let resposta =
+    await fetch(
+        "http://localhost:3000/buscar/" + estado
+    );
+
+    let dados =
+    await resposta.json();
+
+    let resultado =
+    document.getElementById("resultado");
+
+    resultado.innerHTML = "";
+
+    if(dados.length === 0){
+
+        resultado.innerHTML =
+        "<p>Nenhum hotel encontrado.</p>";
+
+        return;
+    }
+
+    dados.forEach(hotel => {
+
+        resultado.innerHTML += `
+
+        <div class="card">
+
+            <h3>${hotel.nome}</h3>
+
+            <p>
+                Cidade: ${hotel.cidade}
+            </p>
+
+            <p>
+                Estado: ${hotel.estado}
+            </p>
+
+            <p>
+                ⭐ ${hotel.estrelas}
+            </p>
+
+            <p>
+                R$ ${hotel.preco}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

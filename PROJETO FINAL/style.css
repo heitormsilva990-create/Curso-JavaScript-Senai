@@ -1,0 +1,58 @@
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f5f5f5;
+}
+
+header{
+    background:#0077ff;
+    color:white;
+    padding:20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:15px;
+}
+
+.banner{
+    text-align:center;
+    padding:80px;
+    background:#e9f2ff;
+}
+
+.pesquisa{
+    text-align:center;
+    padding:40px;
+}
+
+input{
+    padding:10px;
+    width:250px;
+}
+
+button{
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+#resultado{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    padding:20px;
+    justify-content:center;
+}
+
+.card{
+    background:white;
+    width:250px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}

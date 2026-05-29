@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hotéis - Brasil Viagens</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.titulo{
+
+    text-align: center;
+
+    margin: 30px 0;
+
+}
+
+.lista-hoteis{
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    padding: 20px;
+
+}
+
+.hotel{
+
+    width: 300px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+
+}
+
+.hotel img{
+
+    width: 100%;
+    height: 200px;
+
+    object-fit: cover;
+
+}
+
+.hotel-info{
+
+    padding: 15px;
+
+}
+
+.hotel-info h3{
+
+    margin-bottom: 10px;
+
+}
+
+.hotel-info p{
+
+    margin-bottom: 5px;
+
+}
+
+.hotel-info button{
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    border: none;
+
+    cursor: pointer;
+
+}
+
+.reservar{
+
+    background: #0077ff;
+    color: white;
+
+}
+
+.favorito{
+
+    background: gold;
+}
+
+.avaliar{
+
+    background: #00b894;
+    color: white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Brasil Viagens</h1>
+
+</header>
+
+<h2 class="titulo">
+
+    Hotéis Disponíveis
+
+</h2>
+
+<div
+    class="lista-hoteis"
+    id="lista-hoteis"
+>
+
+</div>
+
+<script>
+
+async function carregarHoteis(){
+
+    let resposta = await fetch(
+
+        "http://localhost:3000/hoteis"
+
+    );
+
+    let hoteis = await resposta.json();
+
+    let lista =
+    document.getElementById(
+        "lista-hoteis"
+    );
+
+    lista.innerHTML = "";
+
+    hoteis.forEach(hotel => {
+
+        lista.innerHTML += `
+
+        <div class="hotel">
+
+            <img
+                src="https://picsum.photos/300/200?random=${hotel.id}"
+            >
+
+            <div class="hotel-info">
+
+                <h3>
+                    ${hotel.nome}
+                </h3>
+
+                <p>
+                    Cidade:
+                    ${hotel.cidade}
+                </p>
+
+                <p>
+                    Estado:
+                    ${hotel.estado}
+                </p>
+
+                <p>
+                    ⭐ ${hotel.estrelas}
+                </p>
+
+                <p>
+                    R$ ${hotel.preco}
+                </p>
+
+                <button
+                    class="reservar"
+                    onclick="reservar(${hotel.id})"
+                >
+                    Reservar
+                </button>
+
+                <button
+                    class="favorito"
+                    onclick="favoritar(${hotel.id})"
+                >
+                    Favoritar
+                </button>
+
+                <button
+                    class="avaliar"
+                    onclick="avaliar(${hotel.id})"
+                >
+                    Avaliações
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function reservar(id){
+
+    localStorage.setItem(
+        "hotelSelecionado",
+        id
+    );
+
+    window.location =
+    "reservas.html";
+
+}
+
+async function favoritar(id){
+
+    await fetch(
+
+        "http://localhost:3000/favoritos",
+
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                hotelId: id
+
+            })
+
+        }
+
+    );
+
+    alert(
+        "Hotel adicionado aos favoritos!"
+    );
+
+}
+
+function avaliar(id){
+
+    localStorage.setItem(
+        "hotelSelecionado",
+        id
+    );
+
+    window.location =
+    "avaliacoes.html";
+
+}
+
+carregarHoteis();
+
+</script>
+
+</body>
+</html>
